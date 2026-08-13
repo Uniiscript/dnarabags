@@ -7,6 +7,17 @@ if (!product.value) throw createError({ statusCode: 404, statusMessage: 'Tas nie
 
 const { openInquiry } = useInquiry()
 const related = computed(() => products.filter(item => item.categories.some(category => product.value?.categories.includes(category)) && item.slug !== product.value?.slug).slice(0, 2))
+const lightboxOpen = ref(false)
+const selectedImage = ref<'photo' | 'styled'>('photo')
+
+function openLightbox(image: 'photo' | 'styled') {
+  selectedImage.value = image
+  lightboxOpen.value = true
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false
+}
 
 useSeoMeta({ title: () => product.value!.name, description: () => product.value!.description })
 </script>
@@ -15,8 +26,14 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
   <main v-if="product">
     <section class="product-detail">
       <div class="detail-gallery">
-        <img :src="product.image" :alt="product.name" />
-        <img :src="product.styledImage" :alt="`${product.name} vrijstaand`" />
+        <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} groter`" @click="openLightbox('photo')">
+          <img :src="product.image" :alt="product.name" />
+          <span>Bekijk de tas</span>
+        </button>
+        <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} vrijstaand groter`" @click="openLightbox('styled')">
+          <img :src="product.styledImage" :alt="`${product.name} vrijstaand`" />
+          <span>Bekijk de tas</span>
+        </button>
       </div>
       <div class="detail-copy">
         <NuxtLink class="back-link" :to="`/handtassen/${product.categories[0]}`">← {{ categoryInfo[product.categories[0]].name }}</NuxtLink>
@@ -39,5 +56,27 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
         <NuxtLink v-for="item in related" :key="item.slug" :to="productPath(item)"><img :src="item.image" :alt="item.name" /><span>{{ item.name }} →</span></NuxtLink>
       </div>
     </section>
+
+    <Transition name="modal-fade">
+      <div v-if="lightboxOpen" class="product-lightbox-backdrop" @click.self="closeLightbox" @keydown.esc="closeLightbox">
+        <section class="product-lightbox" role="dialog" aria-modal="true" :aria-label="`${product.name} productinformatie`" tabindex="-1">
+          <button class="modal-close" type="button" aria-label="Sluiten" @click="closeLightbox">×</button>
+          <div class="lightbox-image">
+            <img :src="selectedImage === 'photo' ? product.image : product.styledImage" :alt="selectedImage === 'photo' ? product.name : `${product.name} vrijstaand`" />
+          </div>
+          <div class="lightbox-copy">
+            <p class="eyebrow">Bekijk de tas</p>
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <div class="lightbox-specs">
+              <div><span>Dragen</span><p>{{ product.wearing }}</p></div>
+              <div><span>Sluiting</span><p>{{ product.closure }}</p></div>
+              <div><span>Visie</span><p>{{ product.vision }}</p></div>
+            </div>
+            <button class="button button-gold" type="button" @click="openInquiry('price', product.name); closeLightbox()">Prijs aanvragen</button>
+          </div>
+        </section>
+      </div>
+    </Transition>
   </main>
 </template>
