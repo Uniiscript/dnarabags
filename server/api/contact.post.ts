@@ -85,7 +85,7 @@ export default defineEventHandler(async (event) => {
 
   const resend = new Resend(apiKey)
   const { error } = await resend.emails.send({
-    from: process.env.DNARA_RESEND_FROM || process.env.RESEND_FROM || "D'Nara Bags <contact@noxxara.com>",
+    from: process.env.DNARA_RESEND_FROM || process.env.RESEND_FROM || "D'Nara Bags <dnarabags@kober.noxxara.com>",
     to: ['dnarabags@hotmail.com'],
     replyTo: email,
     subject: `${reasonLabel}${product ? ` — ${product}` : ''} van ${name}`,
