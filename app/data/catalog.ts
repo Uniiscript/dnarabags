@@ -7,6 +7,7 @@ export interface BagProduct {
   image: string
   styledImage: string
   presentationImage: string
+  clutchPresentationImage?: string
   tagline: string
   description: string
   photoDescription: string
@@ -47,7 +48,7 @@ export const products: BagProduct[] = [
   },
   {
     slug: 'royal-blue', name: 'Royal Blue', categories: ['crossbody', 'clutch'],
-    image: '/images/products/crossbody/royal-blue.jpg', styledImage: '/images/products/styled/crossbody/royal-blue.png', presentationImage: '/images/products/presentation/royal-blue.png',
+    image: '/images/products/crossbody/royal-blue.jpg', styledImage: '/images/products/styled/crossbody/royal-blue.png', presentationImage: '/images/products/presentation/royal-blue-crossbody.png', clutchPresentationImage: '/images/products/presentation/royal-blue-clutch.png',
     tagline: 'Koningsblauw, draagbaar op jouw manier.',
     description: 'Een helderblauwe kralentas met een rond handhengsel én een afneembaar ogende lange zilverkleurige ketting.',
     photoDescription: 'Op de foto zie je een intens blauwe, compacte tas met een stevig rond hengsel, zilverkleurige metalen details, een lange ketting en een bijpassend blauw accessoire aan de ketting.',
