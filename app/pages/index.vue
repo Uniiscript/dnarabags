@@ -30,11 +30,11 @@ useSeoMeta({ title: '', description: "Ontdek het verhaal van D'Nara Bags en NayN
           <NuxtLink class="text-link" to="/naynays-kids">NayNay's Kids</NuxtLink>
         </div>
       </div>
-      <div class="home-hero-mark"><img src="/images/dnara-logo.png" alt="D'Nara Bags kroonlogo" /></div>
+      <div class="home-hero-mark"><img src="/icon-512.png" alt="D'Nara Bags kroonlogo" /></div>
     </section>
 
     <section class="story-section">
-      <div class="story-image"><img src="/images/collections/naynays-kids.png" alt="NayNay's Kids handgemaakte kralentas" /></div>
+      <div class="story-image"><img src="/images/products/crossbody/blush-pink.jpg" alt="Roze NayNay's Kids handgemaakte kralentas" /></div>
       <div class="story-copy">
         <p class="eyebrow">Een verhaal met liefde</p>
         <h2>NayNay's Kids</h2>

@@ -104,16 +104,6 @@ export const products: BagProduct[] = [
     closure: 'De sluiting is op deze foto niet zichtbaar; de tas wordt later aangevuld met de definitieve specificaties.',
     vision: 'Pearl White is gemaakt voor zachte, feestelijke momenten en combineert moeiteloos met een lichte of ton-sur-ton look.',
   },
-  {
-    slug: 'blush-pink', name: 'Blush Pink', categories: ['schoudertas'],
-    image: '/images/products/crossbody/blush-pink.jpg', styledImage: '/images/products/styled/crossbody/blush-pink.png',
-    tagline: 'Romantisch blush met een moderne vorm.',
-    description: 'Een transparant zachtroze kralentas met rond hengsel en een lange goudkleurige ketting.',
-    photoDescription: 'Op de foto zie je een compact roze model met doorschijnende kralen, een rond handhengsel, goudkleurige ringen en een lange goudkleurige ketting.',
-    wearing: 'Draag haar los over één schouder met de ketting of in de hand aan het ronde hengsel.',
-    closure: 'De sluiting is op deze foto niet zichtbaar; de tas wordt later aangevuld met de definitieve specificaties.',
-    vision: 'Blush Pink is een zachte, glanzende finishing touch die romantiek en moderniteit samenbrengt.',
-  },
 ]
 
 export function productPath(product: BagProduct) {
