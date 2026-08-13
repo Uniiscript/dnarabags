@@ -67,8 +67,10 @@ useSeoMeta({
   <div class="site-shell">
     <header class="site-header">
       <NuxtLink class="wordmark" to="/" aria-label="D'Nara Bags home">
-        <img src="/images/dnara-logo.png" alt="D'Nara Bags" />
-        <span>D'Nara Bags</span>
+        <span class="wordmark-logo" aria-hidden="true">
+          <img src="/icon-512.png" alt="" />
+        </span>
+        <span class="wordmark-name">D'Nara Bags</span>
       </NuxtLink>
 
       <nav class="main-nav" aria-label="Hoofdnavigatie">

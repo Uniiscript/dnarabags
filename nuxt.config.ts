@@ -14,7 +14,12 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#0b0b0a' },
         { property: 'og:url', content: 'https://dnarabags.noxxara.com/' },
       ],
-      link: [{ rel: 'canonical', href: 'https://dnarabags.noxxara.com/' }],
+      link: [
+        { rel: 'canonical', href: 'https://dnarabags.noxxara.com/' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/icon-512.png' },
+      ],
     },
   },
 })
