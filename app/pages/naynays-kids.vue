@@ -7,7 +7,7 @@ useSeoMeta({ title: "NayNay's Kids", description: "Ontdek NayNay's Kids: een spe
   <main>
     <section class="kids-page-hero">
       <div><p class="eyebrow">De kleine collectie met een groot verhaal</p><h1>NayNay's<br /><em>Kids</em></h1></div>
-      <img src="/images/collections/naynays-kids.png" alt="NayNay's Kids collectie" />
+      <img src="/images/products/crossbody/blush-pink.jpg" alt="Blush Pink tas uit NayNay's Kids" />
     </section>
     <section class="kids-story">
       <p class="section-number">N</p>
