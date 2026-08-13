@@ -332,8 +332,11 @@ footer span { grid-column: 2; }
 .detail-copy h1 { max-width: 9ch; font-size: clamp(4rem,7vw,7rem); }
 .detail-tagline { color: var(--gold-light) !important; font-family: 'Cormorant Garamond',serif; font-size: 1.5rem !important; }
 .detail-copy > p:not(.eyebrow) { max-width: 35rem; color: #aba295; font-weight: 300; font-size: .95rem; line-height: 1.85; }
-.detail-copy ul { margin: 2rem 0; padding: 1.4rem 0; border-block: 1px solid var(--line); color: #948c80; font-size: .78rem; line-height: 2; list-style: none; }
-.detail-copy li::before { margin-right: .7rem; color: var(--gold); content: '◆'; font-size: .48rem; }
+.bag-story { display: grid; gap: 0; margin: 2rem 0; border-block: 1px solid var(--line); }
+.bag-story > div { padding: 1rem 0; border-bottom: 1px solid rgba(213,176,101,.14); }
+.bag-story > div:last-child { border-bottom: 0; }
+.bag-story span { display: block; margin-bottom: .35rem; color: var(--gold); font-size: .57rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; }
+.bag-story p { max-width: 36rem; margin: 0; color: #a89f91; font-size: .8rem; font-weight: 300; line-height: 1.65; }
 .detail-copy .button { font-family: inherit; cursor: pointer; }
 .related-section { padding-block: 5rem 8rem; border-top: 1px solid var(--line); }
 .related-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }

@@ -29,6 +29,7 @@ watch(() => route.fullPath, () => {
           <NuxtLink to="/handtassen/crossbody">Crossbody</NuxtLink>
           <NuxtLink to="/handtassen/clutch">Clutch</NuxtLink>
           <NuxtLink to="/handtassen/schoudertas">Schoudertas</NuxtLink>
+          <NuxtLink to="/handtassen/handtas">Handtas</NuxtLink>
         </div>
       </div>
       <NuxtLink to="/naynays-kids">NayNay's Kids</NuxtLink>

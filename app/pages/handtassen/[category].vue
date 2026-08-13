@@ -4,7 +4,7 @@ import { categoryInfo, products, type BagCategory } from '~/data/catalog'
 const route = useRoute()
 const category = computed(() => route.params.category as BagCategory)
 const info = computed(() => categoryInfo[category.value])
-const categoryProducts = computed(() => products.filter(product => product.category === category.value))
+const categoryProducts = computed(() => products.filter(product => product.categories.includes(category.value)))
 
 if (!info.value) throw createError({ statusCode: 404, statusMessage: 'Categorie niet gevonden' })
 

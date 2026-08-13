@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { productPath, products } from '~/data/catalog'
+import { categoryInfo, productPath, products } from '~/data/catalog'
 
 const slides = products
 const activeSlide = ref(0)
@@ -53,7 +53,7 @@ useSeoMeta({ title: '', description: "Ontdek het verhaal van D'Nara Bags en NayN
         <NuxtLink v-for="(slide, index) in slides" v-show="activeSlide === index" :key="slide.slug" class="slide" :to="productPath(slide)">
           <div class="slide-image"><img :src="slide.image" :alt="slide.name" /></div>
           <div class="slide-copy">
-            <small>{{ slide.category }}</small>
+            <small>{{ categoryInfo[slide.categories[0]].name }}</small>
             <h3>{{ slide.name }}</h3>
             <p>{{ slide.tagline }}</p>
             <span>Bekijk deze tas →</span>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BagProduct } from '~/data/catalog'
-import { productPath } from '~/data/catalog'
+import { categoryInfo, productPath } from '~/data/catalog'
 
 defineProps<{ product: BagProduct }>()
 </script>
@@ -12,7 +12,7 @@ defineProps<{ product: BagProduct }>()
       <span>Bekijk de tas</span>
     </NuxtLink>
     <div class="catalog-meta">
-      <div><small>{{ product.category }}</small><h2>{{ product.name }}</h2></div>
+      <div><small>{{ categoryInfo[product.categories[0]].name }}</small><h2>{{ product.name }}</h2></div>
       <NuxtLink :to="productPath(product)" :aria-label="`Bekijk ${product.name}`">→</NuxtLink>
     </div>
   </article>
