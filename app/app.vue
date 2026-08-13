@@ -48,6 +48,63 @@ const instagramPosts = [
 
 const carousel = ref<HTMLElement | null>(null)
 
+type InquiryReason = 'price' | 'personal' | 'item'
+
+const inquiryOpen = ref(false)
+const inquiryStatus = ref<'idle' | 'sending' | 'success' | 'error'>('idle')
+const inquiryError = ref('')
+const inquiryForm = reactive({
+  reason: 'price' as InquiryReason,
+  product: '',
+  name: '',
+  email: '',
+  phone: '',
+  message: '',
+  website: '',
+})
+
+const inquiryReasons: { value: InquiryReason; label: string; description: string }[] = [
+  { value: 'price', label: 'Prijsaanvraag', description: 'Ontvang een prijsopgave voor een tas.' },
+  { value: 'personal', label: 'Persoonlijke aanvraag', description: 'Bespreek kleuren, formaat of een eigen ontwerp.' },
+  { value: 'item', label: 'Vraag over een item', description: 'Stel een vraag over een tas uit de collectie.' },
+]
+
+function openInquiry(reason: InquiryReason = 'personal', product = '') {
+  inquiryForm.reason = reason
+  inquiryForm.product = product
+  inquiryStatus.value = 'idle'
+  inquiryError.value = ''
+  inquiryOpen.value = true
+}
+
+function closeInquiry() {
+  if (inquiryStatus.value === 'sending') return
+  inquiryOpen.value = false
+}
+
+async function submitInquiry() {
+  inquiryStatus.value = 'sending'
+  inquiryError.value = ''
+
+  try {
+    await $fetch('/api/contact', { method: 'POST', body: inquiryForm })
+    inquiryStatus.value = 'success'
+  }
+  catch (error: any) {
+    inquiryStatus.value = 'error'
+    inquiryError.value = error?.data?.statusMessage || 'Versturen is niet gelukt. Probeer het later opnieuw.'
+  }
+}
+
+watch(inquiryOpen, (isOpen) => {
+  if (!import.meta.client) return
+  document.body.classList.toggle('modal-open', isOpen)
+})
+
+onBeforeUnmount(() => {
+  if (import.meta.client) document.body.classList.remove('modal-open')
+})
+
 function scrollCarousel(direction: -1 | 1) {
   if (!carousel.value) return
   const card = carousel.value.querySelector<HTMLElement>('.social-card')
@@ -76,7 +133,7 @@ useSeoMeta({
       <nav class="main-nav" aria-label="Hoofdnavigatie">
         <a href="#collectie">Collectie</a>
         <a href="#socials">Socials</a>
-        <a href="mailto:hello@noxxara.com">Contact</a>
+        <button type="button" @click="openInquiry('personal')">Contact</button>
       </nav>
     </header>
 
@@ -147,7 +204,7 @@ useSeoMeta({
                     </div>
                     <div class="product-meta">
                       <p>{{ product.name }}</p>
-                      <a :href="instagramUrl" target="_blank" rel="noopener noreferrer" :aria-label="`${product.name} aanvragen via Instagram`">Aanvragen ↗</a>
+                      <button type="button" :aria-label="`Prijs aanvragen voor ${product.name}`" @click="openInquiry('price', product.name)">Prijs aanvragen</button>
                     </div>
                   </article>
                 </div>
@@ -229,5 +286,78 @@ useSeoMeta({
       </div>
       <span>© {{ new Date().getFullYear() }} D'Nara Bags</span>
     </footer>
+
+    <button class="contact-bubble" type="button" aria-label="Snel contact opnemen" @click="openInquiry('personal')">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+        <path d="M4 6.5h16v11H4z" />
+        <path d="m5 7.5 7 5 7-5" />
+      </svg>
+      <span>Snel contact</span>
+    </button>
+
+    <Transition name="modal-fade">
+      <div v-if="inquiryOpen" class="modal-backdrop" @click.self="closeInquiry" @keydown.esc="closeInquiry">
+        <section class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+          <button class="modal-close" type="button" aria-label="Sluiten" @click="closeInquiry">×</button>
+
+          <template v-if="inquiryStatus === 'success'">
+            <div class="form-success">
+              <span aria-hidden="true">✓</span>
+              <p class="eyebrow">Aanvraag ontvangen</p>
+              <h2 id="contact-modal-title">Bedankt, {{ inquiryForm.name }}.</h2>
+              <p>Je bericht is verstuurd naar D'Nara Bags. We nemen zo snel mogelijk contact met je op.</p>
+              <button class="button button-gold" type="button" @click="closeInquiry">Sluiten</button>
+            </div>
+          </template>
+
+          <form v-else @submit.prevent="submitInquiry">
+            <p class="eyebrow">Persoonlijk contact</p>
+            <h2 id="contact-modal-title">Waar kunnen we je mee helpen?</h2>
+            <p class="modal-intro">Vertel ons waar je naar op zoek bent. Je aanvraag komt rechtstreeks bij D'Nara Bags terecht.</p>
+
+            <fieldset class="reason-options">
+              <legend>Soort aanvraag</legend>
+              <label v-for="reason in inquiryReasons" :key="reason.value" :class="{ selected: inquiryForm.reason === reason.value }">
+                <input v-model="inquiryForm.reason" type="radio" name="reason" :value="reason.value" />
+                <span><strong>{{ reason.label }}</strong><small>{{ reason.description }}</small></span>
+              </label>
+            </fieldset>
+
+            <div v-if="inquiryForm.product" class="selected-product">
+              <span>Geselecteerde tas</span>
+              <strong>{{ inquiryForm.product }}</strong>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                <span>Naam *</span>
+                <input v-model.trim="inquiryForm.name" name="name" type="text" autocomplete="name" maxlength="80" required />
+              </label>
+              <label>
+                <span>E-mailadres *</span>
+                <input v-model.trim="inquiryForm.email" name="email" type="email" autocomplete="email" maxlength="160" required />
+              </label>
+              <label class="form-wide">
+                <span>Telefoonnummer <small>(optioneel)</small></span>
+                <input v-model.trim="inquiryForm.phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
+              </label>
+              <label class="form-wide">
+                <span>Bericht *</span>
+                <textarea v-model.trim="inquiryForm.message" name="message" rows="4" maxlength="2000" required placeholder="Vertel bijvoorbeeld welke tas, kleur of uitvoering je mooi vindt."></textarea>
+              </label>
+              <label class="honeypot" aria-hidden="true">
+                <span>Website</span>
+                <input v-model="inquiryForm.website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
+            <p v-if="inquiryError" class="form-error" role="alert">{{ inquiryError }}</p>
+            <button class="button button-gold submit-button" type="submit" :disabled="inquiryStatus === 'sending'">
+              {{ inquiryStatus === 'sending' ? 'Bezig met versturen…' : 'Aanvraag versturen' }}
+            </button>
+          </form>
+        </section>
+      </div>
+    </Transition>
   </div>
 </template>
