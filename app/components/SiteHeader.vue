@@ -8,7 +8,6 @@ watch(() => route.fullPath, () => {
   bagsOpen.value = false
 })
 
-const { openInquiry } = useInquiry()
 </script>
 
 <template>
@@ -33,7 +32,7 @@ const { openInquiry } = useInquiry()
         </div>
       </div>
       <NuxtLink to="/naynays-kids">NayNay's Kids</NuxtLink>
-      <button type="button" @click="openInquiry('personal')">Contact</button>
+      <NuxtLink to="/contact">Contact</NuxtLink>
     </nav>
   </header>
 </template>

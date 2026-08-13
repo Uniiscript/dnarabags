@@ -19,7 +19,7 @@ useSeoMeta({
       <div>
         <a :href="instagramUrl" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a :href="tiktokUrl" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <button type="button" @click="openInquiry('personal')">Contact</button>
+        <NuxtLink to="/contact">Contact</NuxtLink>
       </div>
       <span>© {{ new Date().getFullYear() }} D'Nara Bags</span>
     </footer>
