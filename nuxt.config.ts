@@ -5,11 +5,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'nl' },
-      title: 'D’nara Bags — Handgemaakte handtassen',
+      title: "D'Nara Bags | Handmade beaded bags",
       meta: [
         {
           name: 'description',
-          content: 'Ontdek unieke handgemaakte handtassen van D’nara Bags. Met aandacht ontworpen en in kleine oplage gemaakt.',
+          content: 'Handmade beaded bags, met liefde gemaakt in Nederland.',
         },
         { name: 'theme-color', content: '#0b0b0a' },
         { property: 'og:url', content: 'https://dnarabags.noxxara.com/' },
