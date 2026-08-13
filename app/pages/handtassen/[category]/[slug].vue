@@ -8,9 +8,9 @@ if (!product.value) throw createError({ statusCode: 404, statusMessage: 'Tas nie
 const { openInquiry } = useInquiry()
 const related = computed(() => products.filter(item => item.categories.some(category => product.value?.categories.includes(category)) && item.slug !== product.value?.slug).slice(0, 2))
 const lightboxOpen = ref(false)
-const selectedImage = ref<'photo' | 'styled'>('photo')
+const selectedImage = ref<'photo' | 'presentation'>('photo')
 
-function openLightbox(image: 'photo' | 'styled') {
+function openLightbox(image: 'photo' | 'presentation') {
   selectedImage.value = image
   lightboxOpen.value = true
 }
@@ -28,11 +28,11 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
       <div class="detail-gallery">
         <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} groter`" @click="openLightbox('photo')">
           <img :src="product.image" :alt="product.name" />
-          <span>Bekijk de tas</span>
+          <span>Originele productfoto</span>
         </button>
-        <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} vrijstaand groter`" @click="openLightbox('styled')">
-          <img :src="product.styledImage" :alt="`${product.name} vrijstaand`" />
-          <span>Bekijk de tas</span>
+        <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} als draagvoorbeeld groter`" @click="openLightbox('presentation')">
+          <img :src="product.presentationImage" :alt="`${product.name} als draagvoorbeeld`" />
+          <span>Zo draag je haar</span>
         </button>
       </div>
       <div class="detail-copy">
@@ -62,10 +62,10 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
         <section class="product-lightbox" role="dialog" aria-modal="true" :aria-label="`${product.name} productinformatie`" tabindex="-1">
           <button class="modal-close" type="button" aria-label="Sluiten" @click="closeLightbox">×</button>
           <div class="lightbox-image">
-            <img :src="selectedImage === 'photo' ? product.image : product.styledImage" :alt="selectedImage === 'photo' ? product.name : `${product.name} vrijstaand`" />
+            <img :src="selectedImage === 'photo' ? product.image : product.presentationImage" :alt="selectedImage === 'photo' ? product.name : `${product.name} als draagvoorbeeld`" />
           </div>
           <div class="lightbox-copy">
-            <p class="eyebrow">Bekijk de tas</p>
+            <p class="eyebrow">{{ selectedImage === 'photo' ? 'Originele productfoto' : 'Draaginspiratie' }}</p>
             <h2>{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <div class="lightbox-specs">
