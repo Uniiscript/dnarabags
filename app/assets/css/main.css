@@ -278,7 +278,7 @@ footer span { grid-column: 2; }
 .home-hero-copy { padding-block: 5rem; }
 .home-hero-copy > p:not(.eyebrow) { max-width: 35rem; margin: 2rem 0 2.5rem; color: #b8b0a3; font-weight: 300; line-height: 1.9; }
 .home-hero-mark { display: grid; place-items: center; padding-block: 3rem; }
-.home-hero-mark img { width: min(90%,34rem); border-radius: 50%; background: #050505; box-shadow: 0 2rem 7rem rgba(0,0,0,.8), 0 0 3rem rgba(197,154,74,.2); }
+.home-hero-mark img { width: min(90%,34rem); border: 7px solid #d6b66f; border-radius: 50%; background: #050505; box-shadow: 0 2rem 7rem rgba(0,0,0,.8), 0 0 3rem rgba(197,154,74,.2); }
 
 .story-section { display: grid; grid-template-columns: minmax(0,1fr) minmax(18rem,.8fr); align-items: center; gap: clamp(3rem,8vw,8rem); padding-block: clamp(6rem,10vw,10rem); border-block: 1px solid var(--line); background: radial-gradient(circle at 18% 52%, rgba(130,73,111,.22), transparent 28rem), #090708; }
 .story-image { overflow: hidden; border: 1px solid rgba(213,176,101,.4); aspect-ratio: 5/6; }

@@ -50,13 +50,13 @@ useSeoMeta({ title: '', description: "Ontdek het verhaal van D'Nara Bags en NayN
         <p>Klik op een tas om alle details te bekijken of direct een prijs aan te vragen.</p>
       </div>
       <div class="slideshow" @mouseenter="clearInterval(autoplay)" @mouseleave="autoplay = setInterval(() => showSlide(activeSlide + 1), 4500)">
-        <NuxtLink v-for="(slide, index) in slides" v-show="activeSlide === index" :key="slide.slug" class="slide" :to="productPath(slide)">
+        <NuxtLink v-for="(slide, index) in slides" v-show="activeSlide === index" :key="slide.slug" class="slide" :to="productPath(slide)" :aria-label="`Bekijk productinformatie voor ${slide.name}`">
           <div class="slide-image"><img :src="slide.image" :alt="slide.name" /></div>
           <div class="slide-copy">
             <small>{{ categoryInfo[slide.categories[0]].name }}</small>
             <h3>{{ slide.name }}</h3>
             <p>{{ slide.tagline }}</p>
-            <span>Bekijk deze tas →</span>
+            <span>Bekijk productinformatie →</span>
           </div>
         </NuxtLink>
         <div class="slide-controls">
