@@ -32,7 +32,7 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
         </button>
         <button type="button" class="gallery-image" :aria-label="`Bekijk ${product.name} als draagvoorbeeld groter`" @click="openLightbox('presentation')">
           <img :src="product.presentationImage" :alt="`${product.name} als draagvoorbeeld`" />
-          <span>Zo draag je haar</span>
+          <span>Draagvoorbeeld</span>
         </button>
       </div>
       <div class="detail-copy">
@@ -65,7 +65,7 @@ useSeoMeta({ title: () => product.value!.name, description: () => product.value!
             <img :src="selectedImage === 'photo' ? product.image : product.presentationImage" :alt="selectedImage === 'photo' ? product.name : `${product.name} als draagvoorbeeld`" />
           </div>
           <div class="lightbox-copy">
-            <p class="eyebrow">{{ selectedImage === 'photo' ? 'Originele productfoto' : 'Draaginspiratie' }}</p>
+            <p class="eyebrow">{{ selectedImage === 'photo' ? 'Originele productfoto' : 'Draagvoorbeeld ter inspiratie' }}</p>
             <h2>{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <div class="lightbox-specs">
